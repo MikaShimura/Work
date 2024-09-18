@@ -1,0 +1,102 @@
+/* 共通スタイルは外に書く */
+
+/* メインコンテンツ大枠 */
+.p-article {
+  /* メインコンテンツ色指定 */
+  background-color: #8c2727;
+}
+
+/* メインコンテンツ見出し */
+.p-article__title {
+  /* 文字サイズの指定 */
+  font-size: 20px;
+  /* 見出しの下に余白 */
+  margin-bottom: 40px;
+}
+
+/* メインコンテンツの項目 */
+.p-article__item {
+  /* 画像とテキスト全体を横並び */
+  display: flex;
+  /* 画像とテキスト全体を中央に寄せる */
+  align-items: center;
+  /* 各項目に下線 */
+  border-bottom: 1px solid #444444;
+  /* 画像とテキストの間に隙間 */
+  gap: 20px;
+}
+
+/* pc用スタイル */
+@media screen and (min-width: 796px) {
+  /* メインコンテンツ大枠 */
+  .p-article {
+    /* メインコンテンツ横幅 */
+    width: calc(100% - 300px);
+    /* メインコンテンツ上下左右に余白 */
+    padding: 20px 40px;
+  }
+
+  /* メインコンテンツの項目 */
+  .p-article__item {
+    /* 各項目の高さ指定 */
+    height: 200px;
+    padding-bottom: 2%;
+    margin-bottom: 2%;
+  }
+  
+  .p-article__image {
+    height: 180px;
+    width: 180px;
+    display: flex;
+  }
+  
+  .p-article__thumb {
+    align-items: center;
+  }
+  
+  .p-article__thumb3 {
+    justify-content: center;
+  }
+
+  /* メインコンテンツテキストのレイアウト */
+  .p-article__textall {
+    /* テキストを画像中央に寄せるためにフレックスボックスを指定 */
+    display: flex;
+    /* テキストを画像中央に寄せる */
+    align-items: center;
+    /* テキストの左に余白 */ 
+    margin-left: 20px;
+    width: 66%;
+  }
+  
+  /* 記事タイトル（h3相当） */ 
+  .p-article__itemTitle {
+    /* 記事タイトルに下線*/ 
+    text-decoration: underline;
+    /* 記事タイトルの下に余白 */ 
+    margin-bottom: 10px;
+  }
+
+}
+
+/* sp用スタイル */
+@media screen and (max-width: 795px) {
+  .p-article {
+    padding: 40px;
+  }
+  
+  .p-article__item {
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+
+  .p-article__content {
+    margin-right: auto;
+  }
+
+  .p-article__textall {
+    margin-bottom: 20px;
+    margin-right: auto;
+  }
+
+}

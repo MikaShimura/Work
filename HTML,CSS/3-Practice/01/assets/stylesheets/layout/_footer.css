@@ -1,0 +1,62 @@
+/* 共通スタイルは外に書く */
+/* フッターの全体 */ 
+.l-footer {
+  background-color: #d98d30;
+  /* 項目を横並び */ 
+  display: flex;
+}
+
+/* pc用スタイル */
+@media screen and (min-width: 796px) {
+  /* フッターの全体 */ 
+  .l-footer {
+    width: 100%;
+    /* フッターの高さの指定 */ 
+    height: 100px;
+    /* ヘッダーの各要素の両端揃え */
+    justify-content: space-between;
+    /* 項目を中央揃え */ 
+    align-items: center;
+    font-size: 18px;
+    /* 項目の左に余白 */ 
+    padding-left: 10%;
+    /* 項目の右に余白 */ 
+    padding-right: 10%;
+  }
+
+  /* フッターのナビゲーション */ 
+  .l-footer__nav {
+    display: flex;
+  }
+
+  /* フッターの各文字の設定 */ 
+  .l-footer__navItem {
+    margin-right: 40px;
+  }
+
+  /* コピーライト */
+  .l-footer__copyright {
+    font-size: 15px;
+  }
+
+}
+
+/* sp用スタイル */
+@media screen and (max-width: 795px) {
+  .l-footer {
+    padding: 40px;
+    gap: 50px;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .l-footer__nav {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .l-footer__navItem {
+    text-align: center;
+  }
+
+}
