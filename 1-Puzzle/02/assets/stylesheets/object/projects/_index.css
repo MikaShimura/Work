@@ -1,0 +1,70 @@
+/* 共通スタイルは外に書く */
+.l-header{
+    height: 100px;
+}
+.p-index__left{
+    padding: 20px;
+}
+.p-index__right{
+    padding: 20px;
+}
+.c-footer{
+    height: 100px;
+}
+@media screen and (min-width: 796px) { /* pc用スタイル */
+    .container{
+        width: 400px;
+        margin: 0 auto;
+    }
+    .l-header{
+        background-color: #141f40;
+    }
+    .p-index{
+        height: 250px;
+        display: flex;
+    }
+    .p-index__left{
+        background-color: #80bfa8;
+        width: 150px;
+    }
+    .p-index__left_p{
+        color: #f00;
+        font-size: 20px;
+    }
+    .p-index__right{
+        background-color: #8c2727;
+        width: 250px;
+    }
+    .p-index__right_p{
+        color: #00f;
+        font-size: 20px;
+    }
+    .c-footer{
+        background-color: #d98d30;
+    }
+}
+
+@media screen and (max-width: 795px) { /* sp用スタイル */
+    .l-header{
+        background-color: #e91e63;
+    }
+    .p-index__left{
+        background-color: #0093b7;
+        height: 250px;
+    }
+    .p-index__left_p{
+        color: #00f;
+        font-size: 15px;
+    }
+    .p-index__right{
+        background-color: #dbd400;
+        height: 250px;
+    }
+    .p-index__right_p{
+        font-size: 15px;
+        color: #f00;
+    }
+    .c-footer{
+        background-color: #170e38;
+    }
+}
