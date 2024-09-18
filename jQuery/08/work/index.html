@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="format-detection" content="telephone=no">
+  <title>08 | 1-jQuery</title>
+  <link rel="stylesheet" href="../../00-tools/css/reset.css">
+  <link rel="stylesheet" href="../../00-tools/css/base.css">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/jquery.js"></script>
+</head>
+<body>
+<div class="wrap">
+  <div class="container">
+    <div class="header">
+      <p class="header__title">Search Books!</p>
+    </div>
+    <div class="search">
+      <div class="search__text">
+        <input type="text" id="js-search-word" class="search__text__input" value="" placeholder="検索する">
+      </div>
+      <button id="js-search-button" class="search__btn">検索する</button>
+    </div>
+    <ul class="lists"></ul>
+  </div>
+</div>
+<script defer>
+  /*
+   * jQuery最終課題です。
+   *
+   * 楽天ブックスの総合検索APIを使って製作してください。
+   *
+   * Javascriptにおいて（多言語でもそうですが）APIの利用や実装、それに伴うオブジェクトの取り扱い、非同期処理の実装というのはWebアプリ（Webサイトではないです）を作る上では必須のスキルになります。
+   * ここでは、ほんの触りしかしませんが、これから必ず使う技術になってくるので、
+   * 処理のイメージを持っておいてください。
+   *
+   */
+  window.addEventListener( 'load', function(){
+    let keyword;
+    let error = true;
+
+    $("#js-search-word").on("input", function () {
+      keyword = $("#js-search-word").val();
+    });
+
+    $("#js-search-word").on("blur", function () {
+      let value = $(this).val();
+      if (value == "" || !value.match(/[^\s\t]/)) {
+        error = true;
+      } else {
+        error = false;
+      }
+    });
+
+    $("#js-search-button").on("click", function (e) {
+      let displayInformationWrapper = $(".lists");
+
+      if (error) {
+        alert("検索ワードを入力してください");
+        return false;
+      }
+
+      if ($(".lists").length != 0) {
+        $(".lists").children().remove();
+      }
+
+      $.get(
+        "https://app.rakuten.co.jp/services/api/BooksTotal/Search/20170404",
+        {
+          format: "json",
+          keyword: keyword,
+          applicationId: "1099928648190191210",
+        },
+        function (data) {
+          let items = data.Items; // 取得した商品情報群
+          let itemListHtml = ""; // 取得した情報からHTMLを構成するための変数
+          
+          if (data.count > 0) {
+            for (let i = 0; i < items.length; i++) {
+              itemListHtml += `<li class="lists__item">
+              <div class="lists__item__inner">
+                <a class="lists__item__link" href="${data.Items[i].Item.itemUrl}">商品リンク</a>
+                <figure class="lists__item__img">
+                  <img src="${data.Items[i].Item.largeImageUrl}" />
+                  </figure>
+                  <div class="message">${data.Items[i].Item.title}</div>
+                  <div class="lists__item__detail">${data.Items[i].Item.author}</div>
+                  </div>
+                  </li>`;
+            }
+          } else {
+            itemListHtml =
+              "<p>該当する書籍はありません<br>別の検索ワードを試してみてください</p>";
+          }
+
+          displayInformationWrapper.append(itemListHtml);
+        }
+      );
+    });
+  }, false);
+</script>
+</body>
+</html>

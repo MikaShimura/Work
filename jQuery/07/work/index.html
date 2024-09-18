@@ -1,0 +1,165 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="format-detection" content="telephone=no">
+  <title>07 | 1-jQuery</title>
+  <link rel="stylesheet" href="../../00-tools/css/reset.css">
+  <link rel="stylesheet" href="../../00-tools/css/base.css">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/jquery.js"></script>
+</head>
+<body>
+<ul class="lists clearfix"></ul>
+<script defer>
+  /*
+   * 今回やるのは神経衰弱です。
+   * 今までの課題と違い、Javascriptのロジックを書いていきます。
+   *
+   * まずゲームの流れを説明します。
+   *
+   * ①: 16枚のリストの中から "?" と書かれたものをひとつクリックする
+   * ②: その要素に書かれている "?" が "6" などの数字に変わる
+   * ③: もうひとつ"?"と書かれたものをクリックする
+   * ④: その要素に書かれている "?" が "6" などの数字に変わる
+   * ⑤: ②と④で表示された数字が一致している場合は、開いた数字はそのままで①に戻る。一致していない場合は1秒後に数字が "?" に戻り①にもどる。
+   * ⑥: 全ての要素が開かれたときにアラートで "Game Over"
+   *
+   * 以上が全体の流れです。
+   *
+   * ここからはプログラムの説明です。
+   * まず最初にやらなければいけないことは、16枚のリストを表示するです。
+   * ただ単純な配列であればfor文を用いれば、簡単につくることが出来ますが、今回作るのは "1~8までの数字を2つずつ" かつ "ランダム" にしないといけません。
+   * 配列さえ出来上がってしまえば、for文を使って <li> を変数に文字列でくっつけてあげましょう。 <li> 自体の中身は "?" にし、data属性に先ほど作った配列の値を入れてあげると今後楽になるかと思います。
+   *
+   * 次はクリックイベントについて説明します。
+   * クリックした要素を保持する際は、変数に格納しましょう。
+   * こうすることで比較が簡単になります。
+   *
+   * 過去の課題で学んだことや、指摘された内容等を総動員して、取り掛かってください。
+   *
+   */
+  window.addEventListener( 'load', function(){
+    let cardsCount = 16;
+    let cards = []; //カードの数字が入る
+    let shuffledCards = []; //ランダムに並んだカードの数字が入る
+    let cardOpenCount = 0; //めくったカードが１枚目か２枚目の判定用変数
+    let indexArray = []; //めくったカードのインデックス情報が入る
+    let successCount = 0; //そろった回数が入る
+    let successIndexArray = [];
+
+    // 1〜8までの数字がランダムに２つずつ入った配列を用意する
+    for (let i = 0; i < cardsCount / 2; i++) {
+      cards.push(i + 1, i + 1);
+    }
+
+    // 配列の要素をランダムに並べ替える関数
+    function shuffleArray(array) {
+      const cloneArray = [...array];
+
+      for (let i = cloneArray.length - 1; i >= 0; i--) {
+        let rand = Math.floor(Math.random() * (i + 1));
+        // 配列内の要素の順番を入れ替える
+        let tmpStorage = cloneArray[i];
+        cloneArray[i] = cloneArray[rand];
+        cloneArray[rand] = tmpStorage;
+      }
+
+      return cloneArray;
+    }
+
+    // ？が入ったli要素を16個作り、data属性の中に配列の中身を入れる
+    shuffledCards = shuffleArray(cards);
+    for (let i = 0; i < cardsCount; i++) {
+      $(".lists").append(
+        '<li class="card" data-card="' + shuffledCards[i] + '">?</li>'
+      );
+      console.log(shuffledCards);
+    }
+
+    // disableMatchedCards();
+
+    // 要素をクリックしたら、そのdata属性の値を変数に入れて保持する。
+    $(".card").on("click", function () {
+      let index = $(this).index();
+      let currentCard = $(this).attr("data-card");
+      indexArray.push(index);
+
+      $(this).text(currentCard);
+
+      if (cardOpenCount == 0) {
+        // カードの１枚目をめくった時
+        cardData = faceUp($(this));
+        cardOpenCount++;
+      } else if (cardOpenCount == 1) {
+        // ３枚目以降をめくれないようにする
+        $(".card").css("pointer-events", "none");
+
+        // カードの２枚目をめくった時
+        cardOpenCount = 0;
+
+        if (cardData == faceUp($(this))) {
+          // 数字が揃ったら成功
+          success();
+          indexArray = [];
+
+          $(".card").css("pointer-events", "auto");
+          disableMatchedCards();
+        } else {
+          // 数字が違えば失敗
+          setTimeout(() => {
+            faceDown(indexArray);
+            indexArray = [];
+            $(".card").css("pointer-events", "auto");
+            disableMatchedCards();
+          }, 1000);
+        }
+      }
+    });
+
+    //カードが揃った場合の処理
+    function success() {
+      // 揃ったカードはクリックできないようにする
+      for (let i = 0; i < indexArray.length; i++) {
+        $(".card").eq(indexArray[i]).css("pointer-events", "none");
+        successIndexArray.push(indexArray[i]);
+      }
+
+      // カードが揃った回数を数える
+      successCount++;
+
+      // 8回成功したらアラートを表示する
+      if (successCount == 8) {
+        // 最後のカードが揃ったときにめくれる前にアラートがなるので少し遅らせる
+        setTimeout(function () {
+          alert("CLEAR!");
+        }, 100);
+      }
+    }
+
+    // カードをめくる関数 data-card属性の値を返す
+    function faceUp(element) {
+      let data = element.attr("data-card");
+      element.text(data);
+
+      return data;
+    }
+
+    // カードを？にする関数
+    function faceDown(indexArray) {
+      for (let i = 0; i < indexArray.length; i++) {
+        $(".card").eq(indexArray[i]).text("?");
+      }
+    }
+
+    // 揃ったカードにはさわれなくする関数
+    function disableMatchedCards() {
+      for (let i = 0; i < successIndexArray.length; i++) {
+        $(".card").eq(successIndexArray[i]).css("pointer-events", "none");
+      }
+    }
+  }, false);
+</script>
+</body>
+</html>
