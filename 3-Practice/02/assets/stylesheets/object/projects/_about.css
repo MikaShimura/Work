@@ -1,0 +1,80 @@
+/* 共通スタイルは外に書く */
+.p-about__content {
+  display: flex;
+}
+
+.p-about__image {
+  /* 画像の角をカーブさせる */
+  border-radius: 10px;
+  /* 画像の角のカーブを適用する */
+  overflow: hidden;
+}
+
+.p-about__image img {
+  /* 画像の比率を合わせたまま表示 */
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
+
+@media screen and (min-width: 796px) { /* pc用スタイル */
+  .p-about__inner {
+    padding: 80px 60px;
+  }
+
+  .p-about__content {
+    /* 要素を複数行に折り返す */
+    flex-wrap: wrap;
+    /* 縦の隙間 */
+    column-gap: 5%;
+    /* 横の隙間 */
+    row-gap: 20px;
+  }
+
+  .p-about__item:nth-of-type(1) {
+    width: 60%;
+  }
+
+  .p-about__item:nth-of-type(2) {
+    width: 30%;
+    flex-grow: 1;
+  }
+
+  .p-about__item:nth-of-type(3) {
+    width: 30%;
+  }
+
+  .p-about__item:nth-of-type(4) {
+    width: 60%;
+    flex-grow: 1;
+  }
+
+  .p-about__image {
+    height: 300px;
+  }
+
+  .p-about__image img {
+    /* 画像の比率を合わせたまま表示 */
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+  }
+
+}
+
+@media screen and (max-width: 795px) { /* sp用スタイル */
+  .p-about__inner {
+    padding: 80px 10px;
+  }
+
+  .p-about__content {
+    flex-direction: column;
+    /* 画像の下に隙間 */
+    gap: 20px;
+  }
+
+  .p-about__image {
+    height: 200px;
+  }
+
+}

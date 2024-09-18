@@ -1,0 +1,45 @@
+/* 共通スタイルは外に書く */
+
+/* タイトルのテキスト全体 */
+.c-title {
+  /* 要素を中央寄せにするためにフレックスボックスを指定 */
+  display: flex;
+  /* 要素を縦並びにする */
+  flex-direction: column;
+  /* 要素を左右中央寄せ */
+  align-items: center;
+  /* 要素全体の下に余白 */
+  padding-bottom: 60px;
+}
+
+.c-title__main {
+  color: #5a5a5a;
+  font-size: 30px;
+  /* メインタイトルの下に余白 */
+  padding-bottom: 30px;
+}
+
+.c-title__lead {
+  color: #848484;
+  font-size: 18px;
+  /* タイトルテキストの下に余白 */
+  padding-bottom: 30px;
+  /* テキストを左右中央寄せ */
+  text-align: center;
+}
+
+/* タイトル下の線 */
+.c-title__bar {
+  background-color: #fcc72c;
+  width: 100px;
+  height: 2px;
+}
+@media screen and (min-width: 796px) { /* pc用スタイル */
+
+
+}
+
+@media screen and (max-width: 795px) { /* sp用スタイル */
+
+
+}

@@ -1,0 +1,79 @@
+/* 共通スタイルは外に書く */
+
+/* ヘッダーの大枠 */
+.l-header {
+  /* ヘッダーの横幅 */
+  width: 100%;
+  /* ヘッダーの配置方法を指定 */
+  position: absolute;
+}
+
+/* ヘッダーの各要素 */
+.l-header__inner {
+  /* ヘッダーの各要素の余白 */
+  padding: 20px;
+}
+
+@media screen and (min-width: 796px) { /* pc用スタイル */
+  /* ヘッダーの各要素 */
+  .l-header__inner {
+  /* ヘッダーの各要素の両端揃え */
+  justify-content: space-between;
+  /* ヘッダーの各要素を横並び */
+  display: flex;
+  /* ヘッダーの各要素を中央に寄せる */
+  align-items: center;
+  }
+
+  /* ヘッダーのロゴ */
+  .l-header__logo {
+    /* ロゴの横幅の指定 */
+    width: 50px;
+  }
+
+  /* ヘッダーの文字まとめ */ 
+  .l-header__navList {
+    color: #ffffff;
+    /* ヘッダーの文字を横並び */
+    display: flex;
+  }
+
+  /* ヘッダーの各文字の設定 */
+  .l-header__navItem {
+    /* ヘッダーの各文字に左に余白 */
+    padding-left: 20px;
+  }
+
+}
+
+@media screen and (max-width: 795px) { /* sp用スタイル */
+  .l-header__button {
+    margin-left: 93%;
+    position: relative;
+    width: 40px;
+    height: 30px;
+    cursor: pointer;
+  }
+
+  .l-header__buttonBar {
+    background-color: #ffffff;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 3px;
+  }
+
+  .l-header__buttonBar:nth-last-of-type(1) {
+    top: 0;
+  }
+
+  .l-header__buttonBar:nth-last-of-type(2) {
+    top: 50%;
+  }
+
+  .l-header__buttonBar:nth-last-of-type(3) {
+    top: 100%;
+  }
+
+
+}
