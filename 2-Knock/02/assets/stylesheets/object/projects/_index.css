@@ -1,0 +1,104 @@
+/* 共通スタイルは外に書く */
+img {
+    width: 100%;
+    height: auto;
+}
+
+.wrapper {
+    max-width: calc(1280px + 40px * 2);
+    margin-inline: auto;
+}
+
+.row-reverse {
+    flex-direction: row-reverse;
+}
+
+.border {
+    border-bottom: 1px solid #000;
+}
+
+@media screen and (min-width: 796px) { 
+    /* pc用スタイル */
+    .section {
+        max-width: 1200px;
+        margin-inline: auto;
+        padding: 40px;
+    }
+
+    .section_list {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 40px;
+    }
+
+    .section_item {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+    }
+
+    .top_image {
+        flex-shrink: 0;
+    }
+
+    .section_image {
+        flex-shrink: 0;
+    }
+
+    .section_content {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .section_title {
+        font-size: 30px;
+        font-weight: normal;
+    }
+
+    .section_text {
+        font-size: 14px;
+    }
+
+}
+
+@media screen and (max-width: 795px) { 
+    /* sp用スタイル */
+    .section {
+        padding: 20px;
+    }
+
+    .section_list {
+        display: flex;
+        flex-direction: column; 
+        gap: 20px;
+    }
+
+    .section_item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .top_image {
+        max-width: 400px;
+        width: 100%;
+    }
+
+    .section_content {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .section_title {
+        text-align: center;
+        font-weight: normal;
+    }
+
+    .section_text {
+        text-align: center;
+    }
+}
